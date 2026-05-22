@@ -30,13 +30,14 @@ var (
 )
 
 // displayChar wraps zero-visual-width characters (e.g. Thai combining vowels/tone
-// marks) with a dotted circle (◌ U+25CC) so they render at full width inside the
-// key box. lipgloss.Width() is used (not go-runewidth) because lipgloss is what
-// actually sizes the box. The actual character output to the word buffer is always
-// the raw char from DirectMap — this only affects the keyboard display.
+// marks) with อ (U+0E2D, Thai O ANG — the conventional Thai vowel carrier) so they
+// render visibly inside the key box. The vowel carrier anchors the mark within the
+// cell; ◌ (dotted circle) was tried first but the mark rendered outside cell
+// boundaries (above/below into the border). The actual character output to
+// wordBuffer is always the raw char from DirectMap — this only affects the display.
 func displayChar(s string) string {
 	if s != "" && lipgloss.Width(s) == 0 {
-		return "◌" + s
+		return "อ" + s
 	}
 	return s
 }
