@@ -5,11 +5,13 @@ depends_on:
 id: YB-5
 parent: YB-1
 priority: medium
-status: backlog
+status: done
 title: Typing view UI rendering
 type: task
-updated_at: "2026-05-22T17:19:11Z"
+updated_at: "2026-05-22T17:38:36Z"
 ---
+
+
 
 
 # Description

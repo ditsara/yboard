@@ -5,11 +5,13 @@ depends_on:
 id: YB-9
 parent: YB-1
 priority: medium
-status: backlog
+status: done
 title: Setup screen
 type: task
-updated_at: "2026-05-22T17:11:51Z"
+updated_at: "2026-05-22T17:42:25Z"
 ---
+
+
 
 
 # Description

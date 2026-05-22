@@ -13,11 +13,13 @@ depends_on:
 id: YB-4
 parent: YB-1
 priority: medium
-status: backlog
+status: done
 title: BubbleTea model skeleton (Init/Update/View)
 type: task
-updated_at: "2026-05-22T17:05:23Z"
+updated_at: "2026-05-22T17:36:19Z"
 ---
+
+
 
 
 

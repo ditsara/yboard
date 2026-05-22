@@ -10,11 +10,12 @@ parent: ""
 points: 0
 priority: medium
 related: []
-status: backlog
+status: done
 title: 'YBoard: Multi-Language TUI Keyboard Engine'
 type: epic
-updated_at: "2026-05-22T17:05:23Z"
+updated_at: "2026-05-22T17:50:19Z"
 ---
+
 
 # Description
 

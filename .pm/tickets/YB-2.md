@@ -5,11 +5,13 @@ created_at: "2026-05-22T17:00:56Z"
 id: YB-2
 parent: YB-1
 priority: medium
-status: backlog
+status: done
 title: Project scaffold & Go module setup
 type: task
-updated_at: "2026-05-22T17:05:23Z"
+updated_at: "2026-05-22T17:30:01Z"
 ---
+
+
 
 
 # Description

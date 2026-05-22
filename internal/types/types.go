@@ -1,0 +1,67 @@
+package types
+
+import "fmt"
+
+// VisualKey represents a single physical key's output variants for rendering.
+// Key is the physical English label (e.g. "q", "1", ";") shown in the key box border.
+// Normal and Shift are the language output characters; empty string means not remapped.
+type VisualKey struct {
+	Key    string
+	Normal string
+	Shift  string
+}
+
+// LanguageModule represents a complete language package.
+// KeyboardRows must match StandardRowLengths exactly; use EmptyKey() for unremapped positions.
+type LanguageModule struct {
+	ID             string
+	Name           string
+	Enabled        bool
+	DirectMap      map[string]string
+	ShiftDirectMap map[string]string
+	PhoneticMap    map[string][]string
+	KeyboardRows   [][]VisualKey
+}
+
+// AppState represents which screen is currently active.
+type AppState int
+
+const (
+	StateTyping AppState = iota
+	StateSetup
+)
+
+// InputMode represents the active typing mode.
+type InputMode int
+
+const (
+	DirectMode InputMode = iota
+	SearchMode
+)
+
+// StandardRowLengths defines the required number of keys per row for all language modules.
+// Rows correspond to: number row, QWERTY row, home row, bottom row.
+// Physical key positions: [` 1 2 3 4 5 6 7 8 9 0 - =] [q…\] [a…'] [z…/]
+var StandardRowLengths = []int{13, 13, 11, 10}
+
+// EmptyKey creates a VisualKey for a physical key this language does not remap.
+// The renderer draws it as a muted/dim box — only the key label is visible.
+func EmptyKey(physicalKey string) VisualKey {
+	return VisualKey{Key: physicalKey}
+}
+
+// ValidateModule returns an error if a module's KeyboardRows do not match StandardRowLengths.
+// Call this once at startup for each registered module.
+func ValidateModule(m LanguageModule) error {
+	if len(m.KeyboardRows) != len(StandardRowLengths) {
+		return fmt.Errorf("%s: expected %d keyboard rows, got %d",
+			m.ID, len(StandardRowLengths), len(m.KeyboardRows))
+	}
+	for i, row := range m.KeyboardRows {
+		if len(row) != StandardRowLengths[i] {
+			return fmt.Errorf("%s: row %d expected %d keys, got %d",
+				m.ID, i, StandardRowLengths[i], len(row))
+		}
+	}
+	return nil
+}

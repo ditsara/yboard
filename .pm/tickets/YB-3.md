@@ -9,11 +9,13 @@ depends_on:
 id: YB-3
 parent: YB-1
 priority: medium
-status: backlog
+status: done
 title: Core data structures & types
 type: task
-updated_at: "2026-05-22T17:25:30Z"
+updated_at: "2026-05-22T17:30:52Z"
 ---
+
+
 
 
 

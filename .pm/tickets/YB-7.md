@@ -7,11 +7,13 @@ depends_on:
 id: YB-7
 parent: YB-1
 priority: medium
-status: backlog
+status: done
 title: Direct input mode
 type: task
-updated_at: "2026-05-22T17:05:23Z"
+updated_at: "2026-05-22T17:48:28Z"
 ---
+
+
 
 
 
