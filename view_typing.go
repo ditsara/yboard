@@ -112,7 +112,7 @@ func viewTyping(m model) string {
 			badge = directBadgeStyle.Render("DIRECT")
 		}
 		badgeRow := lipgloss.JoinHorizontal(lipgloss.Center, badge, "  "+langNameStyle.Render(langName))
-		parts = append(parts, " "+badgeRow)
+		parts = append(parts, lipgloss.NewStyle().PaddingLeft(1).Render(badgeRow))
 		parts = append(parts, "")
 
 		// --- Search query + candidates (SearchMode only) ---

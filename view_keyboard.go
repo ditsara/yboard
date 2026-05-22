@@ -29,6 +29,18 @@ var (
 			Padding(0, 1)
 )
 
+// displayChar wraps zero-visual-width characters (e.g. Thai combining vowels/tone
+// marks) with a dotted circle (◌ U+25CC) so they render at full width inside the
+// key box. lipgloss.Width() is used (not go-runewidth) because lipgloss is what
+// actually sizes the box. The actual character output to the word buffer is always
+// the raw char from DirectMap — this only affects the keyboard display.
+func displayChar(s string) string {
+	if s != "" && lipgloss.Width(s) == 0 {
+		return "◌" + s
+	}
+	return s
+}
+
 // renderKey renders a single VisualKey as a 5-wide × 4-tall rounded box.
 // The English key label is injected into the center of the top border.
 // Empty keys (no Normal/Shift) are rendered dim to signal "not remapped".
@@ -44,7 +56,7 @@ func renderKey(vk types.VisualKey) string {
 		normSty = emptySlotStyle
 	}
 
-	shiftChar := vk.Shift
+	shiftChar := displayChar(vk.Shift)
 	if shiftChar == "" {
 		shiftChar = "·"
 		if !isEmpty {
@@ -52,7 +64,7 @@ func renderKey(vk types.VisualKey) string {
 			shiftSty = lipgloss.NewStyle().Foreground(lipgloss.Color("#444444"))
 		}
 	}
-	normalChar := vk.Normal
+	normalChar := displayChar(vk.Normal)
 	if normalChar == "" {
 		normalChar = "·"
 	}
@@ -61,7 +73,7 @@ func renderKey(vk types.VisualKey) string {
 		shiftSty.Render(shiftChar),
 		normSty.Render(normalChar),
 	)
-	box := keyBoxStyle.Render(inner)
+	box := keyBoxStyle.Width(1).Render(inner)
 
 	// Inject the English key label into the center dash of the top border.
 	// Top border of a 5-wide rounded box is "╭───╮"; we replace rune at index 2.
