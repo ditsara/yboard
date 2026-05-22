@@ -49,11 +49,11 @@ func TestHandleDirectInput_UnknownKey(t *testing.T) {
 	m := testModel()
 	m.inputMode = types.DirectMode
 	m.activeIndex = 0
-	m = handleDirectInput(m, makeKey("0")) // "0" not in Thai DirectMap
+	m = handleDirectInput(m, makeKey("=")) // "=" not in Thai DirectMap (EmptyKey)
 	if !strings.Contains(m.statusMessage, "Unknown key") {
 		t.Errorf("unknown key should set warning status, got: %q", m.statusMessage)
 	}
-	if string(m.wordBuffer) != "0" {
+	if string(m.wordBuffer) != "=" {
 		t.Errorf("unknown key should pass through as literal, got: %q", string(m.wordBuffer))
 	}
 }
