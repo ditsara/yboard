@@ -21,7 +21,7 @@ func testModel() model {
 func TestViewTyping_HasFooter(t *testing.T) {
 	m := testModel()
 	out := viewTyping(m)
-	if !strings.Contains(out, "F10:Quit") {
+	if !strings.Contains(out, "F10/^Q:Quit") {
 		t.Error("footer not found in typing view")
 	}
 	if !strings.Contains(out, "F2:Setup") {

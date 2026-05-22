@@ -10,7 +10,7 @@ import (
 
 const defaultTermWidth = 80
 
-const footerText = "F2:Setup  F3:← Lang  F4:→ Lang  F9:Copy  Enter:Copy+Clear  Tab:Mode  F10:Quit"
+const footerText = "F2:Setup  F3:← Lang  F4:→ Lang  F9:Copy  Enter:Copy+Clear  Tab:Mode  F10/^Q:Quit"
 
 var (
 	bufferBoxStyle = lipgloss.NewStyle().

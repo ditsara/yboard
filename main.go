@@ -45,7 +45,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case tea.KeyMsg:
 		switch msg.Type {
-		case tea.KeyF10:
+		case tea.KeyF10, tea.KeyCtrlQ:
 			return m, tea.Quit
 		case tea.KeyCtrlC:
 			return m, tea.Quit
