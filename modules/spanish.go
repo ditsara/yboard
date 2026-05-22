@@ -5,19 +5,8 @@ import "github.com/ditsara/yboard/internal/types"
 // SpanishModule is the Spanish Standard ISO keyboard layout mapped onto a US ANSI keyboard.
 // Rows 0-1 use EmptyKey for keys not present in the Spanish standard layout (backtick, -, =, [, ], \).
 // Row 2 uses EmptyKey for the apostrophe key.
-// Row 3 adds explicit entries for . and / from DirectMap/ShiftDirectMap (missing from spec KeyboardRows).
 var SpanishModule = types.LanguageModule{
 	ID: "spanish", Name: "Spanish Standard", Enabled: true,
-	DirectMap: map[string]string{
-		"q": "q", "w": "w", "e": "e", "r": "r", "t": "t", "y": "y", "u": "u", "i": "i", "o": "o", "p": "p",
-		"a": "a", "s": "s", "d": "d", "f": "f", "g": "g", "h": "h", "j": "j", "k": "k", "l": "l", ";": "ñ",
-		"z": "z", "x": "x", "c": "c", "v": "v", "b": "b", "n": "n", "m": "m", ",": ",", ".": ".", "/": "-",
-	},
-	ShiftDirectMap: map[string]string{
-		"Q": "Q", "W": "W", "E": "E", "R": "R", "T": "T", "Y": "Y", "U": "U", "I": "I", "O": "O", "P": "P",
-		"A": "A", "S": "S", "D": "D", "F": "F", "G": "G", "H": "H", "J": "J", "K": "K", "L": "L", ":": "Ñ",
-		"Z": "Z", "X": "X", "C": "C", "V": "V", "B": "B", "N": "N", "M": "M", "<": ";", ">": ":", "?": "_",
-	},
 	PhoneticMap: map[string][]string{
 		"a": {"á", "ä"}, "e": {"é"}, "i": {"í"}, "o": {"ó"},
 		"u": {"ú", "ü"}, "n": {"ñ"}, "c": {"ç"}, "h": {"¡", "¿"},

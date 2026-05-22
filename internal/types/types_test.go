@@ -48,3 +48,38 @@ if err := ValidateModule(m); err == nil {
 t.Error("expected error for wrong row 0 length, got nil")
 }
 }
+
+func TestBuildDirectMaps_AlphaAndSymbol(t *testing.T) {
+rows := [][]VisualKey{
+{{Key: "1", Normal: "!", Shift: "@"}, EmptyKey("2")},
+{{Key: "a", Normal: "x", Shift: "Y"}},
+}
+direct, shift := BuildDirectMaps(rows)
+
+if direct["1"] != "!" {
+t.Errorf("direct[1]: want !, got %q", direct["1"])
+}
+if direct["2"] != "" {
+t.Errorf("EmptyKey should not appear in direct map, got %q", direct["2"])
+}
+if shift["!"] != "@" { // USKeyShifted["1"] == "!"
+t.Errorf("shift[!]: want @, got %q", shift["!"])
+}
+if direct["a"] != "x" {
+t.Errorf("direct[a]: want x, got %q", direct["a"])
+}
+if shift["A"] != "Y" { // strings.ToUpper("a") == "A"
+t.Errorf("shift[A]: want Y, got %q", shift["A"])
+}
+}
+
+func TestBuildDirectMaps_EmptyShift(t *testing.T) {
+rows := [][]VisualKey{{{Key: "q", Normal: "ๆ", Shift: ""}}}
+direct, shift := BuildDirectMaps(rows)
+if direct["q"] != "ๆ" {
+t.Errorf("direct[q]: want ๆ, got %q", direct["q"])
+}
+if _, ok := shift["Q"]; ok {
+t.Error("shift[Q] should not exist when Shift is empty")
+}
+}

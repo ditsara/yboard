@@ -23,13 +23,17 @@ type model struct {
 }
 
 func initialModel() model {
+	langs := []types.LanguageModule{
+		modules.ThaiModule,
+		modules.SpanishModule,
+	}
+	for i := range langs {
+		langs[i].DirectMap, langs[i].ShiftDirectMap = types.BuildDirectMaps(langs[i].KeyboardRows)
+	}
 	return model{
 		state:     types.StateTyping,
 		inputMode: types.DirectMode,
-		languages: []types.LanguageModule{
-			modules.ThaiModule,
-			modules.SpanishModule,
-		},
+		languages: langs,
 	}
 }
 

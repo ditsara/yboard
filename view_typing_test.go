@@ -9,11 +9,15 @@ import (
 )
 
 func testModel() model {
+	langs := []types.LanguageModule{modules.ThaiModule, modules.SpanishModule}
+	for i := range langs {
+		langs[i].DirectMap, langs[i].ShiftDirectMap = types.BuildDirectMaps(langs[i].KeyboardRows)
+	}
 	return model{
-		state:     types.StateTyping,
-		inputMode: types.DirectMode,
-		languages: []types.LanguageModule{modules.ThaiModule, modules.SpanishModule},
-		termWidth: 100,
+		state:      types.StateTyping,
+		inputMode:  types.DirectMode,
+		languages:  langs,
+		termWidth:  100,
 		termHeight: 40,
 	}
 }
