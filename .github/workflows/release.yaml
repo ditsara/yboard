@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers the workflow on tags matching v*, e.g., v1.0.0
+
+permissions:
+  contents: write # Required for the action to create a GitHub Release
+
+jobs:
+  build-and-release:
+    name: Build and Upload
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Cross-compile matrix matching your supported OS list
+        include:
+          - goos: linux
+            goarch: amd64
+          - goos: windows
+            goarch: amd64
+          - goos: darwin
+            goarch: amd64
+          - goos: darwin
+            goarch: arm64 # For Apple Silicon
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
+      - name: Build Binary
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          # Format the binary name (e.g., yboard-linux-amd64)
+          BINARY_NAME=yboard-${{ matrix.goos }}-${{ matrix.goarch }}
+          
+          # Append .exe if building for Windows
+          if [ "${{ matrix.goos }}" = "windows" ]; then
+            BINARY_NAME=${BINARY_NAME}.exe
+          fi
+          
+          # Build with ldflags to strip debug info and reduce binary size
+          go build -ldflags="-s -w" -o $BINARY_NAME .
+
+      - name: Create Release & Upload Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          # Automatically attaches all compiled binaries to the release
+          files: yboard-*
